@@ -3,6 +3,7 @@ package bugs.map;
 public class Map {
 	private static Map map;
 	private MapTile[][] mapTile;
+	private ArrayList<MapTile>
 	
 	private Map(){
 		Map map = new Map();
@@ -11,6 +12,9 @@ public class Map {
 	}
 	private void initialize(){
 		MapGenerator creator = new MapGenerator();
+	}
+	private MapTile[][] getMapLayout(){
+		return mapTile;
 	}
 	public static Map getMap(){
 		if(map == null)

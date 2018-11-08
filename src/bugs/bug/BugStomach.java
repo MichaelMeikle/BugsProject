@@ -7,7 +7,7 @@ import bugs.exceptions.BugStomachException;
  * Can expel its grass hold and report on whether or not it is full
  */
 
-public class BugStomach extends BugCell{
+public class BugStomach extends BugBody{
 	private Grass stomachContent;
 	public BugStomach(){
 		

@@ -1,4 +1,8 @@
 package bugs.map;
+
+import bugs.stack.BugStack;
+import bugs.stack.LinkedStack;
+
 /*
  * Contains stack of map change requests (Positions, new grass growth, etc)
  * Implements change request provided they are valid at the time of implementation
@@ -9,6 +13,8 @@ package bugs.map;
 public class MapHandler {
 	//The length of time each cycle should take in seconds before revisiting change request stack
 	private int cycleTime = 1;
+	
+	BugStack<MoveRequest> moveList = new LinkedStack<>();
 	
 	
 }

@@ -1,6 +1,11 @@
 package bugs.bug;
 import java.util.Random;
 
+import bugs.exceptions.BugAIStateException;
+import bugs.map.Map;
+import bugs.map.MapTile;
+import bugs.map.MoveRequest;
+
 
 //Container/Handler for the entirety of the bug components
 /*
@@ -11,45 +16,43 @@ import java.util.Random;
  * then the bug will wander around until one becomes visible
  * A bug can move 1 space per 3 (2?) seconds per foot
  */
-public class Bug{
-	//Container for the components
-	private BugCell[][] bugLayout;
+
+public class Bug implements BugCreature{
 	//Unique ID for bug for message reporting
 	private int bugID;
-	//Determines next move when the bug is polled for a move
-	private BugAI brain;
-	//Bugs may only live to a certain age, age is incremented per MapHandle cycle there age is in seconds. (Not yet implemented)
-	private int age;
-	//stomachCount determines how many grass modules a Bug can hold
-	private int stomachCount;
-	//eyeCount * 2 = visual sight distance
-	private int eyeCount;
-	//Movement count
-	private int footCount;
-	//
-	private int[] position;
+	//Copy of map
+	private Map map;
+	//Anything over array length 2 will cause problems with positioning.
+	private int[] mapPos = new int[2];
+	//Wander, Hungry, Seek
+	private String state;
 	
- 	public Bug(){
- 		//TBD
- 	}
-	public Bug(int[] position){
+	private BugBody bug;
+	
+	public Bug(){
 		Random idGen = new Random();
 		bugID = idGen.nextInt(9999);
-		bugLayout = new BugCell[3][3];
-		brain = new BugAI(this);
+		bug = new BugBody();
+		state = "HUNGRY";
 	}
-	public int getStomachCount(){
-		return stomachCount;
+	public void changeState(String newState) throws BugAIStateException{
+		if(newState == "HUNGRY" || newState == "SEEK" || newState == "WANDER")
+			state = newState;
+		else
+			throw new BugAIStateException("Invalid AI State Exception when state change attempt made.");
 	}
-	public int getEyeCount(){
-		return eyeCount;
+	//Called by MapHandler to determine move request, if any
+	public MoveRequest moveQuery(MapTile[][] mapLayout){
+		return null;
 	}
-	public int getFoodCount(){
-		return footCount;
+	private int calculatePath(){
+		return 0;
 	}
-	public int getBugID(){
-		return bugID;
+	public String getState(){
+		return state;
 	}
-	
+	public String report(){
+		return null;
+	}
 	
 }
